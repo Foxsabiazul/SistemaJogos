@@ -14,6 +14,6 @@ import java.sql.SQLException;
  *
  * @author rosa.3950
  */
-public class SistemaPrincipal extends sistema_vendas_jogosFPS{
+public class MenuCad_Pessoa extends sistema_vendas_jogosFPS{
     
 }

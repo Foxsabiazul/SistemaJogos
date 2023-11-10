@@ -5,6 +5,7 @@
 package com.mycompany.ferramentas;
 
 import com.mycompany.sistemajogos.Dados_Temporários_Jogos;
+import java.nio.file.Files;
 
 /**
  *
@@ -12,38 +13,39 @@ import com.mycompany.sistemajogos.Dados_Temporários_Jogos;
  */
 public class CadCategoriaJogos extends javax.swing.JFrame {
 
+    private int buscarProximaId;
+
     /**
      * Creates new form CadCategoria
      */
     public CadCategoriaJogos() {
         initComponents();
+    
+    if (!ExisteDadosTemporarios()){
+        CadCategoriaJogos cadcategoriaJogos = new CadCategoriaJogos();
+        int id = cadcategoriaJogos.buscarProximaId();
+        if (id >= 100)
+        tfId.setText(Constantes.BTN_SALVAR_TEXT);
+        btnExcluir.setVisible(false);
+    }else{
+        btnAcao.setText(Constantes.BTN_ALTERAR_TEXT);
+        btnExcluir.setVisible(true);
         
-        int Dados_Temporários_Jogos;
-        
-        if(!(Dados_Temporários_Jogos)){
-           = CadCategoriaJogos new CadCategoriaJogos();
-
-            int id = CadCategoriaJogos.BuscarProximoId(); 
-            if (id >= 0)
-                tfId.setText(String.valueOf(id));
-            
-            btnAcao.setText(Constantes.BTN_SALVAR_TEXT);
-            btnExcluir.setVisible(false);
-        }else{
-            btnAcao.setText(Constantes.BTN_ALTERAR_TEXT);
-            btnExcluir.setVisible(true);
-        }
-        
-        setLocationRelativeTo(null);
-        
-        tfId.setEnabled(false);
     }
     
-    private Boolean Dados_Temporários_Jogos (){
-     if(Dados_Temporários_Jogos.tempObject01 instaceof )    
-        
-    }
+    setLocationRelativeTo(null);
+    tfId.setEnabled(false);
+    
+}
+   private Boolean existeDadosTemporarios(){
+       if(DadosTemporarios.tempObject instanceof Modelo) {
 
+       }  
+           
+           
+           
+           
+           
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -55,21 +57,20 @@ public class CadCategoriaJogos extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         btnAcao = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        tfId = new javax.swing.JTextField();
         btnExcluir = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        tfJogos = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         taDescricao = new javax.swing.JTextArea();
+        tfId = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setBackground(new java.awt.Color(255, 255, 255));
+        setTitle("Tela de Cadastro");
+        setBackground(new java.awt.Color(224, 255, 242));
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(0, 0, 1, 0, new javax.swing.ImageIcon("C:\\Users\\rosa.3950\\Pictures\\Saved Pictures\\foxhunting.jpg"))); // NOI18N
-
-        btnAcao.setBackground(new java.awt.Color(255, 153, 0));
+        btnAcao.setBackground(new java.awt.Color(255, 167, 38));
         btnAcao.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
         btnAcao.setForeground(new java.awt.Color(0, 0, 0));
         btnAcao.setText("Salvar");
@@ -79,9 +80,23 @@ public class CadCategoriaJogos extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setBackground(new java.awt.Color(255, 153, 0));
-        jLabel1.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
-        jLabel1.setText("IDs categorias™");
+        btnExcluir.setBackground(new java.awt.Color(0, 0, 0));
+        btnExcluir.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
+        btnExcluir.setForeground(new java.awt.Color(255, 153, 0));
+        btnExcluir.setText("Excluir");
+
+        jLabel2.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
+        jLabel2.setText(" Jogos ----->");
+
+        jLabel3.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
+        jLabel3.setText("Descrições dos jogos");
+
+        jScrollPane1.setBorder(null);
+        jScrollPane1.setToolTipText("");
+
+        taDescricao.setColumns(20);
+        taDescricao.setRows(5);
+        jScrollPane1.setViewportView(taDescricao);
 
         tfId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -89,20 +104,13 @@ public class CadCategoriaJogos extends javax.swing.JFrame {
             }
         });
 
-        btnExcluir.setBackground(new java.awt.Color(0, 0, 0));
-        btnExcluir.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
-        btnExcluir.setForeground(new java.awt.Color(255, 153, 0));
-        btnExcluir.setText("Excluir");
+        jLabel1.setBackground(new java.awt.Color(255, 153, 0));
+        jLabel1.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
+        jLabel1.setText("IDs categorias dos jogos");
 
-        jLabel2.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
-        jLabel2.setText(" Jogos -->");
-
-        jLabel3.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
-        jLabel3.setText("Descrição");
-
-        taDescricao.setColumns(20);
-        taDescricao.setRows(5);
-        jScrollPane1.setViewportView(taDescricao);
+        jComboBox1.setBackground(new java.awt.Color(255, 169, 58));
+        jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1°", "2°", "3°", "4°", "5°", "6°", "7°", "8°", "9°", "10°", "11°", "12°", "13°", "14°", "15°", "16°", "17°", "18°", "19°", "20°", "21°", "22°", "23°", "24°", "25°", "26°", "27°", "28°", "29°", "30°", "31°", "32°", "33°", "34°", "35°", "36°", "37°", "38°", "39°", "40°" }));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -111,33 +119,39 @@ public class CadCategoriaJogos extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 722, Short.MAX_VALUE)
+                    .addComponent(tfId, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(btnAcao)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(jLabel1)
-                                .addComponent(tfId, javax.swing.GroupLayout.DEFAULT_SIZE, 480, Short.MAX_VALUE)
-                                .addComponent(jLabel2)
-                                .addComponent(tfJogos)
-                                .addComponent(jLabel3))
-                            .addComponent(btnAcao))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addComponent(jLabel1)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(30, 30, 30)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(285, 285, 285)
+                .addComponent(jLabel3)
+                .addContainerGap(345, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfJogos, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(tfId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(61, 61, 61)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -151,29 +165,25 @@ public class CadCategoriaJogos extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 6, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnAcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnAcaoActionPerformed
-
     private void tfIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIdActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tfIdActionPerformed
+
+    private void btnAcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcaoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAcaoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -214,6 +224,7 @@ public class CadCategoriaJogos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcao;
     private javax.swing.JButton btnExcluir;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -221,6 +232,13 @@ public class CadCategoriaJogos extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea taDescricao;
     private javax.swing.JTextField tfId;
-    private javax.swing.JTextField tfJogos;
     // End of variables declaration//GEN-END:variables
+
+    private boolean ExisteDadosTemporarios() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    private int buscarProximaId() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

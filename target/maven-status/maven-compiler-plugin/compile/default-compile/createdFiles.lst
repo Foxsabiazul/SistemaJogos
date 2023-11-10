@@ -1,1 +1,15 @@
-com\mycompany\sistemajogos\SistemaJogos.class
+com\mycompany\sistemajogos\TelaPrincipal.class
+com\mycompany\ferramentas\CadCategoriaJogos$3.class
+com\mycompany\sistemajogos\sistema_vendas_jogosFPS.class
+com\mycompany\sistemajogos\TelaPrincipal$3.class
+com\mycompany\ferramentas\Formularios.class
+com\mycompany\ferramentas\CadCategoriaJogos.class
+com\mycompany\ferramentas\DadosTemporarios.class
+com\mycompany\sistemajogos\TelaPrincipal$2.class
+com\mycompany\ferramentas\BancoDeDadosMySql.class
+com\mycompany\sistemajogos\MenuCad_Pessoa.class
+com\mycompany\sistemajogos\TelaPrincipal$1.class
+com\mycompany\ferramentas\CadCategoriaJogos$1.class
+com\mycompany\ferramentas\Constantes.class
+com\mycompany\sistemajogos\Dados_Temporários_Jogos.class
+com\mycompany\ferramentas\CadCategoriaJogos$2.class

@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package com.mycompany;
+package com.mycompanyJogos;
 
 import com.mycompany.sistemajogos.Dados_Temporários_Jogos;
 import com.sun.source.tree.ForLoopTree;
@@ -10,8 +10,11 @@ import com.sun.source.tree.ForLoopTree;
 /**
  *
  * @author rosa.3950
- */
+ *
 public class Fornecedores {
+
+    public Fornecedores(String epic_Games_Store, String pc, int par) {
+    }
       private String nome;
     private String plataforma;
     private int popularidade;
@@ -61,6 +64,18 @@ public class Fornecedores {
         System.out.println("Popularidade: " + fornecedor.getPopularidade());
         System.out.println();
     }
-}
+
+    private static class FornecedoresString {
+
+        public FornecedoresString() {
+        }
+    }
+
+    private static class plataforma {
+
+        public plataforma() {
+        }
+    }
+}*/
     
 
