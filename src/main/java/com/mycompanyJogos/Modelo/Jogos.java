@@ -4,14 +4,63 @@
  */
 package com.mycompanyJogos.Modelo;
 
+import org.w3c.dom.Text;
+
 /**
  *
  * @author rosa.3950
  */
 public class Jogos {
+    int id;
+    String Nome;
+    String Descricao;
+    String Text;
+
+    
+     public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    public String getDescricao() {
+        return Descricao;
+    }
+
+    public void setDescricao(String Descricao) {
+        this.Descricao = Descricao;
+    }
+
+    public String getText() {
+        return Text;
+    }
+
+    public void setText(String Text) {
+        this.Text = Text;
+    }
+
+    public String getDescrição() {
+        return Descricao;
+    }
+
+    public void setDescrição(String descricao) {
+        this.Descricao = descricao;
+    }
+
+    public String getNome() {
+        return Nome;
+    }
+
+    public void setNome(String nome) {
+        this.Nome = nome;
+    }
+    
+    
     public static void main (String [] args){
 System.out.println(
-     
+    
+        
         "Jogos de FPS (Primeira Pessoa):\n" +
 "Para console:\n" +
 "Série Call of Duty (PlayStation, Xbox)\n" +
@@ -52,3 +101,4 @@ System.out.println(
     "Assassin’s Creed Valhalla");
         }
 }
+    
