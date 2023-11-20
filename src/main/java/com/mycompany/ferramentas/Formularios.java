@@ -15,5 +15,6 @@ public class Formularios {
  
     public static JFrame cadCategoria;
     public static JFrame listCategoria;
+    public static JFrame telaPrincipal;
     
 }

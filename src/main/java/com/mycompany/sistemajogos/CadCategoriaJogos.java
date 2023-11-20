@@ -2,13 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package com.mycompany.ferramentas;
+package com.mycompany.sistemajogos;
 
+import com.my.company.ModJooj.ModeloJogos;
+import com.mycompany.Daos.DaoCadCategoria;
+import com.mycompany.ferramentas.Constantes;
+import com.mycompany.ferramentas.Constantes;
 import com.mycompany.sistemajogos.Dados_Temporários_Jogos;
 import com.mycompanyJogos.Modelo.Jogos;
 import java.nio.file.Files;
 import javax.swing.JOptionPane;
 import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.ferramentas.DadosTemporarios;
+import com.mycompany.ferramentas.Formularios;
+import com.mycompany.ferramentas.Formularios;
+import com.mycompany.sistemajogos.TelaPrincipal;
 /**
  *
  * @author rosa.3950
@@ -24,9 +33,9 @@ public class CadCategoriaJogos extends javax.swing.JFrame {
         initComponents();
        
     
-    if (!ExisteDadosTemporarios()){
-        CadCategoriaJogos cadcategoriaJogos = new CadCategoriaJogos();
-        int id = cadcategoriaJogos.buscarProximaId();
+    if (!existeDadosTemporarios()){
+        DaoCadCategoria daoCadCategoria = new DaoCadCategoria();
+        int id = daoCadCategoria.buscarProximoId();
         if (id >= 100)
         tfId.setText(Constantes.BTN_SALVAR_TEXT);
         btnExcluir.setVisible(false);
@@ -40,46 +49,76 @@ public class CadCategoriaJogos extends javax.swing.JFrame {
     tfId.setEnabled(false);
     
     }
-   private Boolean existeDadosTemporarios(){
-    if(DadosTemporarios.tempObject instanceof Jogos) {
-        int id = ((Jogos) DadosTemporarios.tempObject).getId();
-        String nome = ((Jogos) DadosTemporarios.tempObject2).getNome(); 
-       String descricao = ((Jogos) DadosTemporarios.tempObject3).getDescrição();
+    private Boolean existeDadosTemporarios(){        
         
-    tfId.setText(String.valueOf(id));
-    tfNome.setText(nome);
-    taDescricao.setText(descricao);
-    
-    DadosTemporarios.tempObject = null;
-    
-        return true;
-    }else
-        return false;
-    
-   } 
-   private void inserir (){
-       CadCategoriaJogos cadcategoriajogos = new CadCategoriaJogos();
-       
-       if (cadcategoriajogos.inserir( Integer.parseInt(tfId.getText()),tfNome.getText(),taDescricao.getText())){
-           JOptionPane.showMessageDialog(null, "Jogo salvo!");
-           
-           tfId.setText(String.valueOf(cadcategoriajogos.buscarProximaId()));
-           tfNome.setText("");
-           taDescricao.setText("");
-       }else{
-          JOptionPane.showMessageDialog(null, "Não foi possivel salvar seu Jogo >﹏< "); 
-       }
-   }
-   
-    private void alterar(){
-        CadCategoriaJogos cadCatJogos = new CadCategoriaJogos();
+        if(DadosTemporarios.tempObject instanceof ModeloJogos){
+            int id = ((ModeloJogos) DadosTemporarios.tempObject).getId();
+            String nome = ((ModeloJogos) DadosTemporarios.tempObject).getNome();
+            String descricao = ((ModeloJogos) DadosTemporarios.tempObject).getDescricao();
+            
+            tfId.setText(String.valueOf(id));
+            tfNome.setText(nome);
+            taDescricao.setText(descricao);
         
-     if (cadCatJogos.alterar(Integer.parseInt(tfId.getText()),tfNome.getText(),taDescricao.getText())){
-         
-     }   
-        
+            DadosTemporarios.tempObject = null;
+            
+            return true;
+        }else
+            return false;
     }
     
+    public void inserir(){
+        DaoCadCategoria DaoCadCategoria = new DaoCadCategoria();
+        
+        if (DaoCadCategoria.inserir(Integer.parseInt(tfId.getText()), tfNome.getText(), taDescricao.getText())){
+            JOptionPane.showMessageDialog(null, "Categoria salva com sucesso!");
+            
+            tfId.setText(String.valueOf(DaoCadCategoria.buscarProximoId()));
+            tfNome.setText("");
+            taDescricao.setText("");
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possível salvar a categoria!");
+        }
+    }
+    
+       public  void alterar(){
+        DaoCadCategoria DaoCadCategoria = new DaoCadCategoria();
+        
+        if (DaoCadCategoria.alterar(Integer.parseInt(tfId.getText()), tfNome.getText(), taDescricao.getText())){
+            JOptionPane.showMessageDialog(null, "Categoria alterada com sucesso!");
+            
+            tfId.setText("");
+            tfNome.setText("");
+            taDescricao.setText("");
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possível alterar a categoria!");
+        }
+        
+        ((TelaPrincipal) Formularios.listCategoria).listarTodos();
+        
+        dispose();
+    }
+
+   public void excluir(){
+        DaoCadCategoria DaoCadCategoria = new DaoCadCategoria();
+        
+        if (DaoCadCategoria.excluir(Integer.parseInt(tfId.getText()))){
+            JOptionPane.showMessageDialog(null, "Categoria " + tfNome.getText() + " excluída com sucesso!");
+            
+            tfId.setText("");
+            tfNome.setText("");
+            taDescricao.setText("");
+        }else{
+            JOptionPane.showMessageDialog(null, "Não foi possível excluir a categoria!");
+        }
+        
+        ((TelaPrincipal) Formularios.listCategoria).listarTodos();
+        
+        dispose();
+    }
+
+    
+       
         /**
          * This method is called from within the constructor to initialize the form.
          * WARNING: Do NOT modify this code. The content of this method is always
@@ -114,12 +153,17 @@ public class CadCategoriaJogos extends javax.swing.JFrame {
         taDescricao = new javax.swing.JTextArea();
         tfId = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jcbNums = new javax.swing.JComboBox<>();
         tfNome = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Tela de Cadastro");
         setBackground(new java.awt.Color(224, 255, 242));
+
+        jPanel1.setBackground(new java.awt.Color(0, 0, 0));
+        jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(2, 3, 1, 3, new java.awt.Color(0, 151, 119)));
+        jPanel1.setForeground(new java.awt.Color(204, 102, 0));
+        jPanel1.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
 
         btnAcao.setBackground(new java.awt.Color(255, 167, 38));
         btnAcao.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
@@ -137,18 +181,22 @@ public class CadCategoriaJogos extends javax.swing.JFrame {
         btnExcluir.setText("Excluir");
 
         jLabel2.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
+        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
         jLabel2.setText(" Jogos ----->");
 
         jLabel3.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(255, 153, 0));
         jLabel3.setText("Descrições dos jogos");
 
         jScrollPane1.setBorder(null);
         jScrollPane1.setToolTipText("");
 
+        taDescricao.setBackground(new java.awt.Color(255, 255, 255));
         taDescricao.setColumns(20);
         taDescricao.setRows(5);
         jScrollPane1.setViewportView(taDescricao);
 
+        tfId.setBackground(new java.awt.Color(255, 153, 0));
         tfId.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfIdActionPerformed(evt);
@@ -157,11 +205,15 @@ public class CadCategoriaJogos extends javax.swing.JFrame {
 
         jLabel1.setBackground(new java.awt.Color(255, 153, 0));
         jLabel1.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
+        jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("IDs categorias dos jogos");
 
-        jComboBox1.setBackground(new java.awt.Color(255, 169, 58));
-        jComboBox1.setForeground(new java.awt.Color(0, 0, 0));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1°", "2°", "3°", "4°", "5°", "6°", "7°", "8°", "9°", "10°", "11°", "12°", "13°", "14°", "15°", "16°", "17°", "18°", "19°", "20°", "21°", "22°", "23°", "24°", "25°", "26°", "27°", "28°", "29°", "30°", "31°", "32°", "33°", "34°", "35°", "36°", "37°", "38°", "39°", "40°" }));
+        jcbNums.setBackground(new java.awt.Color(255, 169, 58));
+        jcbNums.setFont(new java.awt.Font("Verdana", 0, 10)); // NOI18N
+        jcbNums.setForeground(new java.awt.Color(0, 0, 0));
+
+        tfNome.setBackground(new java.awt.Color(0, 0, 0));
+        tfNome.setForeground(new java.awt.Color(255, 255, 255));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -180,19 +232,19 @@ public class CadCategoriaJogos extends javax.swing.JFrame {
                                 .addComponent(btnExcluir, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel1)
-                                .addGap(0, 596, Short.MAX_VALUE)))
+                                .addGap(0, 590, Short.MAX_VALUE)))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfNome)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jcbNums, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(201, 201, 201))))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(285, 285, 285)
                 .addComponent(jLabel3)
-                .addContainerGap(345, Short.MAX_VALUE))
+                .addContainerGap(339, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,9 +256,9 @@ public class CadCategoriaJogos extends javax.swing.JFrame {
                 .addGap(61, 61, 61)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jcbNums, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(tfNome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 109, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 115, Short.MAX_VALUE)
                 .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -227,18 +279,32 @@ public class CadCategoriaJogos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 6, Short.MAX_VALUE))
+                .addGap(0, 4, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void tfIdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfIdActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_tfIdActionPerformed
 
     private void btnAcaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAcaoActionPerformed
         // TODO add your handling code here:
+         DaoCadCategoria daocadCategoria = new DaoCadCategoria();
+        
+        if (btnAcao.getText() == Constantes.BTN_SALVAR_TEXT){
+            inserir();
+            
+            tfId.setText(String.valueOf(daocadCategoria.buscarProximoId()));
+            tfNome.setText("");
+            taDescricao.setText("");
+        }
+        else if (btnAcao.getText() == Constantes.BTN_ALTERAR_TEXT){
+            alterar();
+            ((TelaPrincipal) Formularios.listCategoria).telaprincipal();
+            dispose();
+        }
     }//GEN-LAST:event_btnAcaoActionPerformed
 
     /**
@@ -280,12 +346,12 @@ public class CadCategoriaJogos extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAcao;
     private javax.swing.JButton btnExcluir;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JComboBox<String> jcbNums;
     private javax.swing.JTextArea taDescricao;
     private javax.swing.JTextField tfId;
     private javax.swing.JTextField tfNome;
